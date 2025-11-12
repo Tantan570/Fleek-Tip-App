@@ -16,21 +16,78 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select Color"
-            android:textSize="24sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Color grid -->
+        <!-- Set buttons -->
+        <LinearLayout
+            android:id="@+id/layoutSets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/btnSetA"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Set A"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/white"
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="12dp" />
+
+            <Button
+                android:id="@+id/btnSetB"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Set B"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/white"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <!-- Color buttons -->
         <GridLayout
             android:id="@+id/gridColors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="4"
             android:alignmentMode="alignMargins"
-            android:columnOrderPreserved="false"
             android:useDefaultMargins="true">
+
+            <Button
+                android:id="@+id/btnColorRed"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:backgroundTint="@color/red" />
+
+            <Button
+                android:id="@+id/btnColorBlue"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:backgroundTint="@color/blue" />
+
+            <Button
+                android:id="@+id/btnColorWhite"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:backgroundTint="@color/white" />
+
+            <Button
+                android:id="@+id/btnColorBrown"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:backgroundTint="@color/brown" />
+
+            <Button
+                android:id="@+id/btnColorPink"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:backgroundTint="@color/pink_light" />
         </GridLayout>
-
     </LinearLayout>
-
 </ScrollView>

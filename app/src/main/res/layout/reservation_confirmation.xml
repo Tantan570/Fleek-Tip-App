@@ -74,6 +74,19 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"/>
 
+        <!-- New Price Field -->
+        <TextView
+            android:text="Price:"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/tvConfirmPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
         <TextView
             android:text="Date:"
             android:textStyle="bold"

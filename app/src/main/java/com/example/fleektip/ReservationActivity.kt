@@ -21,15 +21,23 @@ class ReservationActivity : AppCompatActivity() {
 
         val btnNailArt = findViewById<Button>(R.id.btnNailArt)
         val btnEyelash = findViewById<Button>(R.id.btnEyelash)
-        val btnFacial = findViewById<Button>(R.id.btnFacial)
+        val btnBoth = findViewById<Button>(R.id.btnBoth)
 
-        // Track which service is selected
+        // Track selected service and price
         var selectedService = ""
+        var selectedPrice = 0
+
+        // Prices for services
+        val servicePrices = mapOf(
+            "Nail Art" to 350,
+            "Eyelash Extension" to 300,
+            "Both" to 650
+        )
 
         fun resetButtons() {
             btnNailArt.isSelected = false
             btnEyelash.isSelected = false
-            btnFacial.isSelected = false
+            btnBoth.isSelected = false
         }
 
         // Service selection buttons
@@ -37,18 +45,21 @@ class ReservationActivity : AppCompatActivity() {
             resetButtons()
             btnNailArt.isSelected = true
             selectedService = "Nail Art"
+            selectedPrice = servicePrices[selectedService] ?: 0
         }
 
         btnEyelash.setOnClickListener {
             resetButtons()
             btnEyelash.isSelected = true
             selectedService = "Eyelash Extension"
+            selectedPrice = servicePrices[selectedService] ?: 0
         }
 
-        btnFacial.setOnClickListener {
+        btnBoth.setOnClickListener {
             resetButtons()
-            btnFacial.isSelected = true
+            btnBoth.isSelected = true
             selectedService = "Facial"
+            selectedPrice = servicePrices[selectedService] ?: 0
         }
 
         // Date Picker
@@ -103,17 +114,19 @@ class ReservationActivity : AppCompatActivity() {
             val date = tvDate.text.toString()
             val time = tvTime.text.toString()
 
+
             // Check if all fields are filled
             if (name.isBlank() || phone.isBlank() || date == "Select Date" || time == "Select Time" || selectedService.isBlank()) {
                 Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Pass data to confirmation screen
+            // Pass data to confirmation screen including price
             val intent = Intent(this, ReservationConfirmationActivity::class.java).apply {
                 putExtra("name", name)
                 putExtra("phone", phone)
                 putExtra("service", selectedService)
+                putExtra("price", selectedPrice)
                 putExtra("date", date)
                 putExtra("time", time)
             }

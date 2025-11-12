@@ -18,7 +18,7 @@
         android:backgroundTint="@color/white"
         android:alpha="0.1">
 
-        <!-- Centered button inside toolbar -->
+        <!--button inside toolbar -->
         <ImageButton
             android:id="@+id/btnSelectColor"
             android:layout_width="48dp"
@@ -30,7 +30,7 @@
             android:contentDescription="Center Button"/>
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <!-- Back button at top-left -->
+    <!-- Back button-->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="80dp"

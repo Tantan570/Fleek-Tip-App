@@ -17,6 +17,7 @@ class ReservationConfirmationActivity : AppCompatActivity() {
         val service = intent.getStringExtra("service")
         val date = intent.getStringExtra("date")
         val time = intent.getStringExtra("time")
+        val price = intent.getStringExtra("price") //added
 
         // Bind TextViews and display data
         findViewById<TextView>(R.id.tvConfirmName).text = name
@@ -24,6 +25,7 @@ class ReservationConfirmationActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tvConfirmService).text = service
         findViewById<TextView>(R.id.tvConfirmDate).text = date
         findViewById<TextView>(R.id.tvConfirmTime).text = time
+        findViewById<TextView>(R.id.tvConfirmPrice).text = price //added
 
         // Confirm button — finalize reservation
         findViewById<Button>(R.id.btnConfirmReservation).setOnClickListener {

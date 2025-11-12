@@ -1,47 +1,58 @@
 package com.example.fleektip
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
-import android.widget.GridLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class ColorPickerActivity : AppCompatActivity() {
+
+    private var selectedSet: String? = null // "A" or "B"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.color_picker)
 
-        val gridLayout = findViewById<GridLayout>(R.id.gridColors)
+        val btnSetA = findViewById<Button>(R.id.btnSetA)
+        val btnSetB = findViewById<Button>(R.id.btnSetB)
 
-        // ⚡ Easy-to-update list of colors (currently all white)
-        val colors = listOf(
-            "#FFFFFF", // White
-            "#FFFFFF", // White
-            "#FFFFFF", // White
-            "#FFFFFF", // White
-            "#FFFFFF"  // White
+        // Set selection
+        btnSetA.setOnClickListener {
+            selectedSet = "A"
+            btnSetA.setBackgroundTintList(getColorStateList(R.color.teal_200))
+            btnSetB.setBackgroundTintList(getColorStateList(android.R.color.white))
+            Toast.makeText(this, "Set A selected", Toast.LENGTH_SHORT).show()
+        }
+
+        btnSetB.setOnClickListener {
+            selectedSet = "B"
+            btnSetB.setBackgroundTintList(getColorStateList(R.color.teal_200))
+            btnSetA.setBackgroundTintList(getColorStateList(android.R.color.white))
+            Toast.makeText(this, "Set B selected", Toast.LENGTH_SHORT).show()
+        }
+
+        // Color buttons
+        val colors = mapOf(
+            R.id.btnColorRed to "red",
+            R.id.btnColorBlue to "blue",
+            R.id.btnColorWhite to "white",
+            R.id.btnColorBrown to "brown",
+            R.id.btnColorPink to "pink"
         )
 
-        colors.forEach { colorHex ->
-            val colorInt = Color.parseColor(colorHex)
-
-            val colorButton = Button(this).apply {
-                layoutParams = GridLayout.LayoutParams().apply {
-                    width = 150
-                    height = 150
-                    setMargins(16, 16, 16, 16)
-                }
-                setBackgroundColor(colorInt)
-                setOnClickListener {
+        for ((id, colorName) in colors) {
+            findViewById<Button>(id).setOnClickListener {
+                if (selectedSet == null) {
+                    Toast.makeText(this, "Please select a Set first.", Toast.LENGTH_SHORT).show()
+                } else {
                     val resultIntent = Intent()
-                    resultIntent.putExtra("selectedColor", colorHex)
+                    resultIntent.putExtra("selectedColor", colorName)
+                    resultIntent.putExtra("setType", selectedSet)
                     setResult(RESULT_OK, resultIntent)
                     finish()
                 }
             }
-            gridLayout.addView(colorButton)
         }
     }
 }

@@ -30,25 +30,25 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
         const val COLOR_PICKER_REQUEST = 1001
     }
 
-    // Initialize a permission request launcher
+    // Permission request launcher
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
                 startPreview()
             } else {
-                Log.e("CameraKit", "Requested camera permission is denied by the user.")
+                Log.e("CameraKit", "Camera permission denied by user.")
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Back Button
+        // Back button
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
             finish()
         }
 
-        // Center Button → open Color Picker
+        // Open Color Picker screen
         findViewById<ImageButton>(R.id.btnSelectColor).setOnClickListener {
             val intent = Intent(this, ColorPickerActivity::class.java)
             startActivityForResult(intent, COLOR_PICKER_REQUEST)
@@ -56,7 +56,7 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
 
         // Check if Camera Kit is supported
         if (!supported(this)) {
-            Log.e("CameraKit", "Device is not supported")
+            Log.e("CameraKit", "Device not supported for CameraKit.")
             finish()
             return
         }
@@ -65,13 +65,16 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
             context = this, lifecycleOwner = this
         )
 
-        // If camera permission is granted, start the preview
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+        // Start preview if permission granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             startPreview()
         } else {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
 
+        // Initialize CameraKit session
         cameraKitSession = Session(context = this) {
             imageProcessorSource(imageProcessorSource)
             attachTo(findViewById(R.id.camera_kit_stub))
@@ -90,15 +93,23 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
         imageProcessorSource.startPreview(false)
     }
 
-    // Receive the selected color from ColorPickerActivity
+    // Receive the selected color and set from ColorPickerActivity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == COLOR_PICKER_REQUEST && resultCode == RESULT_OK) {
             val selectedColor = data?.getStringExtra("selectedColor")
-            selectedColor?.let {
-                // Input Code to Apply color to your nail art overlay
-                Toast.makeText(this, "Selected Color: $it", Toast.LENGTH_SHORT).show()
+            val setType = data?.getStringExtra("setType")
+
+            if (selectedColor != null && setType != null) {
+                // Apply color to correct nail set
+                Toast.makeText(
+                    this,
+                    "Selected Color: $selectedColor for Set $setType",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                //Add CameraKit/AR overlay logic here
             }
         }
     }

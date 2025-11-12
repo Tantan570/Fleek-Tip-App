@@ -136,13 +136,12 @@
 
         <!-- Facial Button -->
         <Button
-            android:id="@+id/btnFacial"
+            android:id="@+id/btnBoth"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Facial"
+            android:text="Both"
             android:textSize="10sp"
-            android:drawableStart="@drawable/ic_facial"
             android:drawablePadding="8dp"
             android:background="@drawable/bg_service_button"
             android:textColor="@android:color/black"
