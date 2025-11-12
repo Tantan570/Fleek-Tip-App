@@ -1,7 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient">
@@ -104,27 +103,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnReservation" />
 
-    <ImageButton
-        android:id="@+id/btn_facebook"
+    <LinearLayout
+        android:id="@+id/social_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:backgroundTint="#00FFFFFF"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        android:contentDescription="Open Facebook page"
-        app:srcCompat="@drawable/facebook_icon" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
 
-    <ImageButton
-        android:id="@+id/btn_tiktok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="#00FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/btn_facebook"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        android:contentDescription="Open TikTok page"
-        app:srcCompat="@drawable/tiktok_icon" />
+        <ImageButton
+            android:id="@+id/btn_facebook"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="Open Facebook page"
+            app:srcCompat="@drawable/facebook_icon" />
+
+        <ImageButton
+            android:id="@+id/btn_tiktok"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="Open TikTok page"
+            app:srcCompat="@drawable/tiktok_icon" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnReservation"

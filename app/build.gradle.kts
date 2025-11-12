@@ -64,7 +64,7 @@ dependencies {
 
 //Camera kit dependencies repos
     implementation("com.snap.camerakit:camerakit:1.44.0")
-    implementation("com.snap.camerakit:support-camera-activity:1.44.0")
+
     implementation("com.snap.camerakit:support-camerax:1.44.0")
     implementation("com.snap.camerakit:camerakit-kotlin:1.44.0")
     implementation("com.snap.camerakit:support-camera-layout:1.44.0")

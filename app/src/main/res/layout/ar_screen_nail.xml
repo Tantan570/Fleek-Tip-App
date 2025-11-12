@@ -1,4 +1,3 @@
-<!-- ar_screen_nail.xml -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -9,18 +8,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- Bottom toolbar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/ToolbarBottom"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="bottom"
         android:background="#FFFFFF"
-        android:backgroundTint="@color/black" />
+        android:backgroundTint="@color/white"
+        android:alpha="0.1">
 
+        <!-- Centered button inside toolbar -->
+        <ImageButton
+            android:id="@+id/btnSelectColor"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/ic_select_color"
+            app:tint="@color/black"
+            android:contentDescription="Center Button"/>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <!-- Back button at top-left -->
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="top|start"
         android:layout_margin="16dp"
         android:backgroundTint="#00FFFFFF"

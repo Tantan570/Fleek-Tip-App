@@ -12,9 +12,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/ic_app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.FleekTip">
 
@@ -33,6 +33,9 @@
         <activity android:name=".SocialRedirectActivity" />
         <activity android:name=".ReservationConfirmationActivity" />
         <activity android:name=".NailArtActivity" />
+        <activity android:name=".ColorPickerActivity" />
+
+
 
         <!-- Camerakit API Token -->
         <meta-data
