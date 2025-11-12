@@ -93,24 +93,23 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
         imageProcessorSource.startPreview(false)
     }
 
-    // Receive the selected color and set from ColorPickerActivity
+    // Receive the selected color and nail length from ColorPickerActivity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == COLOR_PICKER_REQUEST && resultCode == RESULT_OK) {
             val selectedColor = data?.getStringExtra("selectedColor")
-            val setType = data?.getStringExtra("setType")
+            val selectedSet = data?.getStringExtra("setType")
+            val selectedNailLength = data?.getStringExtra("nailLength")
 
-            if (selectedColor != null && setType != null) {
-                // Apply color to correct nail set
-                Toast.makeText(
-                    this,
-                    "Selected Color: $selectedColor for Set $setType",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                //Add CameraKit/AR overlay logic here
+            val msg = buildString {
+                append("Color: ${selectedColor ?: "none"}\n")
+                append("Set: ${selectedSet ?: "none"}\n")
+                append("Nail Length: ${selectedNailLength ?: "none"}")
             }
+
+            // You can implement your overlay logic here
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
         }
     }
 

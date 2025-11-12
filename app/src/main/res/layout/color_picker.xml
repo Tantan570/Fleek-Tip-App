@@ -17,8 +17,8 @@
             android:layout_height="wrap_content"
             android:text="Select Color"
             android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
+            android:textColor="@color/black"
+            android:padding="4dp"
             android:layout_marginBottom="16dp" />
 
         <!-- Set buttons -->
@@ -38,6 +38,7 @@
                 android:textAllCaps="false"
                 android:backgroundTint="@color/white"
                 android:textColor="@android:color/black"
+                android:background="@drawable/rounded_button_blank"
                 android:layout_marginEnd="12dp" />
 
             <Button
@@ -47,7 +48,8 @@
                 android:text="Set B"
                 android:textAllCaps="false"
                 android:backgroundTint="@color/white"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:background="@drawable/rounded_button_blank"/>
         </LinearLayout>
 
         <!-- Color buttons -->
@@ -57,7 +59,8 @@
             android:layout_height="wrap_content"
             android:columnCount="4"
             android:alignmentMode="alignMargins"
-            android:useDefaultMargins="true">
+            android:useDefaultMargins="true"
+            android:layout_marginBottom="16dp">
 
             <Button
                 android:id="@+id/btnColorRed"
@@ -89,5 +92,65 @@
                 android:layout_height="70dp"
                 android:backgroundTint="@color/pink_light" />
         </GridLayout>
+
+        <!-- Nail length buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:id="@+id/tvSelectLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Nail Length"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:padding="4dp"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <Button
+                    android:id="@+id/btnNailShort"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Short"
+                    android:textAllCaps="false"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@android:color/black"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rounded_button_blank"/>
+
+                <Button
+                    android:id="@+id/btnNailMedium"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Medium"
+                    android:textAllCaps="false"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@android:color/black"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rounded_button_blank"/>
+
+                <Button
+                    android:id="@+id/btnNailLong"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Long"
+                    android:textAllCaps="false"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/rounded_button_blank"/>
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

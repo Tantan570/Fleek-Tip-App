@@ -1,0 +1,68 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Camera preview -->
+    <ViewStub
+        android:id="@+id/camera_kit_stub_eyelash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Top back button -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="top|start"
+        android:layout_margin="16dp"
+        android:backgroundTint="#00FFFFFF"
+        android:src="@drawable/ic_back"
+        app:tint="@color/white"
+        android:contentDescription="Back Button" />
+
+    <!-- Bottom filter toggle buttons -->
+    <LinearLayout
+        android:id="@+id/layoutEyelashFilters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|center"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="#66000000">
+
+        <ToggleButton
+            android:id="@+id/toggleShort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="Short"
+            android:textOn="Short"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/teal_200"/>
+
+        <ToggleButton
+            android:id="@+id/toggleMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="Medium"
+            android:textOn="Medium"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/teal_200"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <ToggleButton
+            android:id="@+id/toggleLong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="Long"
+            android:textOn="Long"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/teal_200"/>
+    </LinearLayout>
+
+</FrameLayout>
