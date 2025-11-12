@@ -1,0 +1,33 @@
+<!-- ar_screen_nail.xml -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.snap.camerakit.support.widget.CameraLayout
+        android:id="@+id/NailsCameraLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/ToolbarBottom"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFF"
+        android:backgroundTint="@color/black" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|start"
+        android:layout_margin="16dp"
+        android:backgroundTint="#00FFFFFF"
+        android:src="@drawable/ic_back"
+        app:tint="@color/white"/>
+
+
+
+
+</FrameLayout>

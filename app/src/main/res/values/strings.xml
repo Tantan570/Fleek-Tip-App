@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Fleek &amp; Tip</string>
+    <string name="title_activity_arscreen">ARScreenActivity</string>
+    <string name="title_activity_reservation">ReservationActivity</string>
+    <string name="welcome_to_fleek_tip"><![CDATA[Welcome to Fleek & Tip!]]></string>
+    <string name="virtual_try_on">Virtual Try-On</string>
+    <string name="book_now">Book Now</string>
+    <string name="try_designs_virtually_and_book_your_perfect_look">Try designs virtually and book your perfect look!</string>
+    <string name="GroupID">f183295f-d40e-41d8-a045-860713e44243</string>
+    <string name="LensID">3d64a29b-2431-4904-a8b6-a8c8243786c0</string>
+
+    <string-array name="service_list">
+        <item>Select Service</item>
+        <item>Nail Art</item>
+        <item>Eyelashes</item>
+        <item>Facial Treatment</item>
+    </string-array>
+
+</resources>
