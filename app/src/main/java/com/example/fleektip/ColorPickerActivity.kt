@@ -6,83 +6,15 @@ import android.widget.Button
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import android.Manifest
-import android.content.pm.PackageManager
-import android.util.Log
-import android.widget.ImageButton
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import com.example.fleektip.NailArtActivity.Companion.COLOR_PICKER_REQUEST
-import com.snap.camerakit.Session
-import com.snap.camerakit.invoke
-import com.snap.camerakit.lenses.LensesComponent
-import com.snap.camerakit.lenses.whenHasFirst
-import com.snap.camerakit.support.camerax.CameraXImageProcessorSource
-import com.snap.camerakit.supported
 
-class ColorPickerActivity : AppCompatActivity(R.layout.ar_screen_nail) {
-
-    private lateinit var cameraKitSession: Session
-    private lateinit var imageProcessorSource: CameraXImageProcessorSource
+class ColorPickerActivity : AppCompatActivity() {
     private var selectedSet: String? = null
     private var selectedNailLength: String? = null
     private var selectedColor: String? = null
     private var isNailPolishMode: Boolean = false
 
-    companion object {
-        const val LENS_GROUP_ID = "f183295f-d40e-41d8-a045-860713e44243"
-        const val LENS_ID = "2e3e6bf7-8231-4ed2-b476-32302d14a520"
-        const val LENS_SET_B ="80bea708-21e6-4698-9c55-24e46eb8ec61"
-    }
-
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                startPreview()
-            } else {
-                Log.e("CameraKit", "Camera permission denied by user.")
-            }
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Check if Camera Kit is supported
-        if (!supported(this)) {
-            Log.e("CameraKit", "Device not supported for CameraKit.")
-            finish()
-            return
-        }
-
-        imageProcessorSource = CameraXImageProcessorSource(
-            context = this, lifecycleOwner = this
-        )
-
-        // Start preview if permission granted
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            startPreview()
-        } else {
-            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-        }
-
-        // Initialize CameraKit session
-        cameraKitSession = Session(context = this) {
-            imageProcessorSource(imageProcessorSource)
-            attachTo(findViewById(R.id.camera_kit_stub))
-        }.apply {
-            lenses.repository.observe(
-                LensesComponent.Repository.QueryCriteria.ById(
-                    NailArtActivity.Companion.LENS_ID,
-                    NailArtActivity.Companion.LENS_GROUP_ID
-                )
-            ) { result ->
-                result.whenHasFirst { requestedLens ->
-                    lenses.processor.apply(requestedLens)
-                }
-            }
-        }
 
         setContentView(R.layout.color_picker)
 
@@ -122,19 +54,9 @@ class ColorPickerActivity : AppCompatActivity(R.layout.ar_screen_nail) {
             Toast.makeText(this, "Set A selected", Toast.LENGTH_SHORT).show()
 
             //Apply AR filter logic for "Set A" here before returning result
-            cameraKitSession.lenses.processor.clear()
-            cameraKitSession = Session(context = this) {
-                imageProcessorSource(imageProcessorSource)
-                attachTo(findViewById(R.id.camera_kit_stub))
-            }.apply {
-                lenses.repository.observe(
-                    LensesComponent.Repository.QueryCriteria.ById(LENS_SET_B, LENS_GROUP_ID)
-                ) { result ->
-                    result.whenHasFirst { requestedLens ->
-                        lenses.processor.apply(requestedLens)
-                    }
-                }
-            }
+            val intent = Intent(this, NailArtActivity::class.java)
+            intent.putExtra("PUSH_LENS", "2e3e6bf7-8231-4ed2-b476-32302d14a520")
+            startActivity(intent)
 
             returnPremadeDesign("A")
         }
@@ -155,19 +77,9 @@ class ColorPickerActivity : AppCompatActivity(R.layout.ar_screen_nail) {
             Toast.makeText(this, "Set B selected", Toast.LENGTH_SHORT).show()
 
             //Apply AR filter logic for "Set B" here before returning result
-            cameraKitSession.lenses.processor.clear()
-            cameraKitSession = Session(context = this) {
-                imageProcessorSource(imageProcessorSource)
-                attachTo(findViewById(R.id.camera_kit_stub))
-            }.apply {
-                lenses.repository.observe(
-                    LensesComponent.Repository.QueryCriteria.ById(LENS_ID, LENS_GROUP_ID)
-                ) { result ->
-                    result.whenHasFirst { requestedLens ->
-                        lenses.processor.apply(requestedLens)
-                    }
-                }
-            }
+            val intent = Intent(this, NailArtActivity::class.java)
+            intent.putExtra("PUSH_LENS", "80bea708-21e6-4698-9c55-24e46eb8ec61")
+            startActivity(intent)
 
 
             returnPremadeDesign("B")
@@ -251,15 +163,6 @@ class ColorPickerActivity : AppCompatActivity(R.layout.ar_screen_nail) {
                 finish()
             }
         }
-    }
-
-    private fun startPreview() {
-        imageProcessorSource.startPreview(false)
-    }
-
-    override fun onDestroy() {
-        cameraKitSession.close()
-        super.onDestroy()
     }
 
     private fun highlightLengthButtons(selected: Button, other1: Button, other2: Button) {
