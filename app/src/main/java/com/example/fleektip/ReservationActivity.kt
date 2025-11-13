@@ -40,7 +40,7 @@ class ReservationActivity : AppCompatActivity() {
             btnBoth.isSelected = false
         }
 
-        // Service selection buttons
+        // --- Service selection buttons ---
         btnNailArt.setOnClickListener {
             resetButtons()
             btnNailArt.isSelected = true
@@ -58,7 +58,7 @@ class ReservationActivity : AppCompatActivity() {
         btnBoth.setOnClickListener {
             resetButtons()
             btnBoth.isSelected = true
-            selectedService = "Facial"
+            selectedService = "Both" // ✅ Fixed (previously said "Facial")
             selectedPrice = servicePrices[selectedService] ?: 0
         }
 
@@ -113,7 +113,6 @@ class ReservationActivity : AppCompatActivity() {
             val phone = findViewById<EditText>(R.id.etPhone).text.toString().trim()
             val date = tvDate.text.toString()
             val time = tvTime.text.toString()
-
 
             // Check if all fields are filled
             if (name.isBlank() || phone.isBlank() || date == "Select Date" || time == "Select Time" || selectedService.isBlank()) {
