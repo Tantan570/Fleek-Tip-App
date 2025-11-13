@@ -24,7 +24,6 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
 
     companion object {
         const val LENS_GROUP_ID = "f183295f-d40e-41d8-a045-860713e44243"
-        const val LENS_ID = "2e3e6bf7-8231-4ed2-b476-32302d14a520"
 
         // Request code for color picker
         const val COLOR_PICKER_REQUEST = 1001
@@ -74,11 +73,15 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
 
+        val getLens = intent.getStringExtra("PUSH_LENS")
+        val LENS_ID = getLens.toString()
+
         // Initialize CameraKit session
         cameraKitSession = Session(context = this) {
             imageProcessorSource(imageProcessorSource)
             attachTo(findViewById(R.id.camera_kit_stub))
-        }.apply {
+        }
+            .apply {
             lenses.repository.observe(
                 LensesComponent.Repository.QueryCriteria.ById(LENS_ID, LENS_GROUP_ID)
             ) { result ->

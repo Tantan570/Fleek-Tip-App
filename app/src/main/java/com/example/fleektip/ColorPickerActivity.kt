@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class ColorPickerActivity : AppCompatActivity() {
-
     private var selectedSet: String? = null
     private var selectedNailLength: String? = null
     private var selectedColor: String? = null
@@ -16,6 +15,7 @@ class ColorPickerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.color_picker)
 
         // --- UI references ---
@@ -54,7 +54,9 @@ class ColorPickerActivity : AppCompatActivity() {
             Toast.makeText(this, "Set A selected", Toast.LENGTH_SHORT).show()
 
             //Apply AR filter logic for "Set A" here before returning result
-
+            val intent = Intent(this, NailArtActivity::class.java)
+            intent.putExtra("PUSH_LENS", "2e3e6bf7-8231-4ed2-b476-32302d14a520")
+            startActivity(intent)
 
             returnPremadeDesign("A")
         }
@@ -75,6 +77,10 @@ class ColorPickerActivity : AppCompatActivity() {
             Toast.makeText(this, "Set B selected", Toast.LENGTH_SHORT).show()
 
             //Apply AR filter logic for "Set B" here before returning result
+            val intent = Intent(this, NailArtActivity::class.java)
+            intent.putExtra("PUSH_LENS", "80bea708-21e6-4698-9c55-24e46eb8ec61")
+            startActivity(intent)
+
 
             returnPremadeDesign("B")
         }
