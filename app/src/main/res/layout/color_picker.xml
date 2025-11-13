@@ -2,7 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    android:padding="16dp">
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,47 +13,61 @@
 
         <!-- Title -->
         <TextView
+            android:id="@+id/tvSelectNailArtSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Nail Art Set"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_light"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Set Buttons -->
+        <LinearLayout
+            android:id="@+id/layoutSets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="28dp">
+
+            <Button
+                android:id="@+id/btnSetA"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:text="Set A"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_button_blank" />
+
+            <Button
+                android:id="@+id/btnSetB"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Set B"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_button_blank" />
+        </LinearLayout>
+
+        <!-- Color Title -->
+        <TextView
             android:id="@+id/tvSelectColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select Color"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
-            android:padding="4dp"
-            android:layout_marginBottom="16dp" />
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginBottom="12dp" />
 
-        <!-- Set buttons -->
-        <LinearLayout
-            android:id="@+id/layoutSets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="20dp">
-
-            <Button
-                android:id="@+id/btnSetA"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="Set A"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/white"
-                android:textColor="@android:color/black"
-                android:background="@drawable/rounded_button_blank"
-                android:layout_marginEnd="12dp" />
-
-            <Button
-                android:id="@+id/btnSetB"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="Set B"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/white"
-                android:textColor="@android:color/black"
-                android:background="@drawable/rounded_button_blank" />
-        </LinearLayout>
-
-        <!-- Color buttons -->
+        <!-- Color Buttons Grid -->
         <GridLayout
             android:id="@+id/gridColors"
             android:layout_width="match_parent"
@@ -60,7 +75,7 @@
             android:columnCount="4"
             android:alignmentMode="alignMargins"
             android:useDefaultMargins="true"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="24dp">
 
             <Button
                 android:id="@+id/btnColorRed"
@@ -93,23 +108,24 @@
                 android:backgroundTint="@color/pink" />
         </GridLayout>
 
-        <!-- Nail Polish toggle -->
+        <!-- Nail Polish Toggle -->
         <LinearLayout
             android:id="@+id/layoutNailPolish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_marginBottom="24dp">
+            android:gravity="center"
+            android:layout_marginBottom="28dp">
 
             <TextView
                 android:id="@+id/tvNailPolish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nail Polish"
+                android:text="Nail Polish Only"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:layout_marginEnd="8dp" />
+                android:fontFamily="@font/poppins_light"
+                android:layout_marginEnd="12dp" />
 
             <Switch
                 android:id="@+id/switchNailPolish"
@@ -118,63 +134,59 @@
                 android:checked="false" />
         </LinearLayout>
 
-        <!-- Nail length buttons -->
+        <!-- Nail Length Section -->
+        <TextView
+            android:id="@+id/tvSelectLength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Nail Length"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginBottom="12dp" />
+
         <LinearLayout
+            android:id="@+id/layoutLengths"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="8dp">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
 
-            <TextView
-                android:id="@+id/tvSelectLength"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select Nail Length"
-                android:textSize="18sp"
+            <Button
+                android:id="@+id/btnNailShort"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Short"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
-                android:padding="4dp"
-                android:layout_marginBottom="12dp" />
+                android:background="@drawable/rounded_button_blank" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:padding="8dp">
+            <Button
+                android:id="@+id/btnNailMedium"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Medium"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_button_blank" />
 
-                <Button
-                    android:id="@+id/btnNailShort"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Short"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@android:color/black"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/rounded_button_blank" />
-
-                <Button
-                    android:id="@+id/btnNailMedium"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Medium"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@android:color/black"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/rounded_button_blank" />
-
-                <Button
-                    android:id="@+id/btnNailLong"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Long"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@android:color/black"
-                    android:background="@drawable/rounded_button_blank" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btnNailLong"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Long"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_button_blank" />
         </LinearLayout>
 
     </LinearLayout>

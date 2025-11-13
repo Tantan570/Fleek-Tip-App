@@ -134,6 +134,34 @@ class ColorPickerActivity : AppCompatActivity() {
                 //Nail Polish Mode
                 if (isNailPolishMode) {
                     // Insert Logic for Nail Polish Here
+                    val keycolor = colorName
+                    when (keycolor){
+                        "red" -> {
+                            val intent = Intent(this, NailArtActivity::class.java)
+                            intent.putExtra("PUSH_LENS", "3d64a29b-2431-4904-a8b6-a8c8243786c0")
+                            startActivity(intent)
+                        }
+                        "blue" -> {
+                            val intent = Intent(this, NailArtActivity::class.java)
+                            intent.putExtra("PUSH_LENS", "121f091e-7010-43b6-8700-2fe34a9b11e5")
+                            startActivity(intent)
+                        }
+                        "white" -> {
+                            val intent = Intent(this, NailArtActivity::class.java)
+                            intent.putExtra("PUSH_LENS", "6cef79cb-364e-4b3b-bcdb-83792ec9ab5e")
+                            startActivity(intent)
+                        }
+                        "brown" -> {
+                            val intent = Intent(this, NailArtActivity::class.java)
+                            intent.putExtra("PUSH_LENS", "9c045089-5cdc-4436-8988-f5d074b8806b")
+                            startActivity(intent)
+                        }
+                        "pink" -> {
+                            val intent = Intent(this, NailArtActivity::class.java)
+                            intent.putExtra("PUSH_LENS", "9f29f58b-f6d5-4ff2-a6b0-524188d65b4f")
+                            startActivity(intent)
+                        }
+                    }
 
                     val resultIntent = Intent().apply {
                         putExtra("selectedColor", colorName)

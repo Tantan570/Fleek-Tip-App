@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Eyelash Extension"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:drawableStart="@drawable/ic_eyelash"
             android:drawablePadding="8dp"
             android:background="@drawable/bg_service_button"
@@ -134,7 +134,7 @@
             android:layout_width="8dp"
             android:layout_height="wrap_content" />
 
-        <!-- Facial Button -->
+        <!-- Both -->
         <Button
             android:id="@+id/btnBoth"
             android:layout_width="0dp"
