@@ -34,6 +34,7 @@
         <activity android:name=".ReservationConfirmationActivity" />
         <activity android:name=".NailArtActivity" />
         <activity android:name=".ColorPickerActivity" />
+        <activity android:name=".EyelashActivity"/>
 
 
 
