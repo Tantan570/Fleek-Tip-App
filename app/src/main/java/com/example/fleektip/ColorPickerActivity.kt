@@ -3,63 +3,117 @@ package com.example.fleektip
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class ColorPickerActivity : AppCompatActivity() {
 
-    private var selectedSet: String? = null // "A" or "B"
-    private var selectedNailLength: String? = null // "short", "medium", "long"
+    private var selectedSet: String? = null
+    private var selectedNailLength: String? = null
+    private var selectedColor: String? = null
+    private var isNailPolishMode: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.color_picker)
 
-        // Set buttons
+        // --- UI references ---
         val btnSetA = findViewById<Button>(R.id.btnSetA)
         val btnSetB = findViewById<Button>(R.id.btnSetB)
-
-        btnSetA.setOnClickListener {
-            selectedSet = "A"
-            btnSetA.setBackgroundTintList(getColorStateList(R.color.pink_light))
-            btnSetB.setBackgroundTintList(getColorStateList(android.R.color.white))
-            Toast.makeText(this, "Set A selected", Toast.LENGTH_SHORT).show()
-        }
-
-        btnSetB.setOnClickListener {
-            selectedSet = "B"
-            btnSetB.setBackgroundTintList(getColorStateList(R.color.pink_light))
-            btnSetA.setBackgroundTintList(getColorStateList(android.R.color.white))
-            Toast.makeText(this, "Set B selected", Toast.LENGTH_SHORT).show()
-        }
-
-        // Nail length buttons
         val btnShort = findViewById<Button>(R.id.btnNailShort)
         val btnMedium = findViewById<Button>(R.id.btnNailMedium)
         val btnLong = findViewById<Button>(R.id.btnNailLong)
+        val togglePolish = findViewById<Switch>(R.id.switchNailPolish)
 
+        // --- Nail Polish Toggle ---
+        togglePolish.setOnCheckedChangeListener { _, isChecked ->
+            isNailPolishMode = isChecked
+            if (isChecked) {
+                Toast.makeText(this, "Nail Polish mode ON", Toast.LENGTH_SHORT).show()
+                //can disable or reset other filters here if needed
+            } else {
+                Toast.makeText(this, "Nail Polish mode OFF", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // --- Set Buttons (Premade Designs) ---
+        btnSetA.setOnClickListener {
+            if (isNailPolishMode) {
+                Toast.makeText(this, "Turn off Nail Polish mode first.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            selectedSet = "A"
+            selectedNailLength = null
+            selectedColor = null
+
+            btnSetA.setBackgroundTintList(getColorStateList(R.color.pink_light))
+            btnSetB.setBackgroundTintList(getColorStateList(android.R.color.white))
+
+            Toast.makeText(this, "Set A selected", Toast.LENGTH_SHORT).show()
+
+            //Apply AR filter logic for "Set A" here before returning result
+
+
+            returnPremadeDesign("A")
+        }
+
+        btnSetB.setOnClickListener {
+            if (isNailPolishMode) {
+                Toast.makeText(this, "Turn off Nail Polish mode first.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            selectedSet = "B"
+            selectedNailLength = null
+            selectedColor = null
+
+            btnSetB.setBackgroundTintList(getColorStateList(R.color.pink_light))
+            btnSetA.setBackgroundTintList(getColorStateList(android.R.color.white))
+
+            Toast.makeText(this, "Set B selected", Toast.LENGTH_SHORT).show()
+
+            //Apply AR filter logic for "Set B" here before returning result
+
+            returnPremadeDesign("B")
+        }
+
+        // --- Nail Length Buttons ---
         btnShort.setOnClickListener {
+            if (isNailPolishMode) {
+                Toast.makeText(this, "Nail Polish mode active — cannot change length.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            selectedSet = null
             selectedNailLength = "short"
-            btnShort.setBackgroundTintList(getColorStateList(R.color.pink_light))
-            btnMedium.setBackgroundTintList(getColorStateList(android.R.color.white))
-            btnLong.setBackgroundTintList(getColorStateList(android.R.color.white))
+            highlightLengthButtons(btnShort, btnMedium, btnLong)
         }
 
         btnMedium.setOnClickListener {
+            if (isNailPolishMode) {
+                Toast.makeText(this, "Nail Polish mode active — cannot change length.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            selectedSet = null
             selectedNailLength = "medium"
-            btnMedium.setBackgroundTintList(getColorStateList(R.color.pink_light))
-            btnShort.setBackgroundTintList(getColorStateList(android.R.color.white))
-            btnLong.setBackgroundTintList(getColorStateList(android.R.color.white))
+            highlightLengthButtons(btnMedium, btnShort, btnLong)
         }
 
         btnLong.setOnClickListener {
+            if (isNailPolishMode) {
+                Toast.makeText(this, "Nail Polish mode active — cannot change length.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            selectedSet = null
             selectedNailLength = "long"
-            btnLong.setBackgroundTintList(getColorStateList(R.color.pink_light))
-            btnShort.setBackgroundTintList(getColorStateList(android.R.color.white))
-            btnMedium.setBackgroundTintList(getColorStateList(android.R.color.white))
+            highlightLengthButtons(btnLong, btnShort, btnMedium)
         }
 
-        // Color buttons
+        // --- Color Buttons ---
         val colors = mapOf(
             R.id.btnColorRed to "red",
             R.id.btnColorBlue to "blue",
@@ -70,20 +124,56 @@ class ColorPickerActivity : AppCompatActivity() {
 
         for ((id, colorName) in colors) {
             findViewById<Button>(id).setOnClickListener {
-                if (selectedSet == null) {
-                    Toast.makeText(this, "Please select a Set first.", Toast.LENGTH_SHORT).show()
-                } else if (selectedNailLength == null) {
-                    Toast.makeText(this, "Please select a Nail Length first.", Toast.LENGTH_SHORT).show()
-                } else {
+                //Nail Polish Mode
+                if (isNailPolishMode) {
+                    // Insert Logic for Nail Polish Here
+
                     val resultIntent = Intent().apply {
                         putExtra("selectedColor", colorName)
-                        putExtra("setType", selectedSet)
-                        putExtra("nailLength", selectedNailLength)
+                        putExtra("nailPolishMode", true)
                     }
                     setResult(RESULT_OK, resultIntent)
                     finish()
+                    return@setOnClickListener
                 }
+
+                // For handling Color + Length
+                selectedColor = colorName
+                selectedSet = null // clear sets
+
+                if (selectedNailLength == null) {
+                    Toast.makeText(this, "Please select a Nail Length.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                // Insert Logic for Nail Length + Color Here
+
+                val resultIntent = Intent().apply {
+                    putExtra("selectedColor", colorName)
+                    putExtra("nailLength", selectedNailLength)
+                    putExtra("setType", "Custom")
+                }
+                setResult(RESULT_OK, resultIntent)
+                finish()
             }
         }
+    }
+
+    private fun highlightLengthButtons(selected: Button, other1: Button, other2: Button) {
+        selected.setBackgroundTintList(getColorStateList(R.color.pink_light))
+        other1.setBackgroundTintList(getColorStateList(android.R.color.white))
+        other2.setBackgroundTintList(getColorStateList(android.R.color.white))
+    }
+
+    //For Handling only Set A or Set B selected
+    private fun returnPremadeDesign(setType: String) {
+        // Insert Logic for Set A or Set B Design
+
+        val resultIntent = Intent().apply {
+            putExtra("setType", setType)
+            putExtra("premadeDesign", true)
+        }
+        setResult(RESULT_OK, resultIntent)
+        finish()
     }
 }
