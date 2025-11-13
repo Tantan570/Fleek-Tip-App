@@ -24,7 +24,8 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
 
     companion object {
         const val LENS_GROUP_ID = "f183295f-d40e-41d8-a045-860713e44243"
-        const val LENS_ID = "3d64a29b-2431-4904-a8b6-a8c8243786c0"
+        const val LENS_ID = "2e3e6bf7-8231-4ed2-b476-32302d14a520"
+
         // Request code for color picker
         const val COLOR_PICKER_REQUEST = 1001
     }
@@ -41,26 +42,6 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //Button Blue
-        findViewById<ImageButton>(R.id.btnSelectColor).setOnClickListener {
-            val LENS_POLISH_BLUE = "121f091e-7010-43b6-8700-2fe34a9b11e5"
-            if (LENS_ID != LENS_POLISH_BLUE){
-                cameraKitSession.lenses.processor.clear()
-                cameraKitSession = Session(context = this) {
-                    imageProcessorSource(imageProcessorSource)
-                    attachTo(findViewById(R.id.camera_kit_stub))
-                }.apply {
-                    lenses.repository.observe(
-                        LensesComponent.Repository.QueryCriteria.ById(LENS_POLISH_BLUE, LENS_GROUP_ID)
-                    ) { result ->
-                        result.whenHasFirst { requestedLens ->
-                            lenses.processor.apply(requestedLens)
-                        }
-                    }
-                }
-            }
-        }
 
         // Back button
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
