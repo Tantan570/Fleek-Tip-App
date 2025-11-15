@@ -5,8 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget. *
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -43,12 +42,13 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
         super.onCreate(savedInstanceState)
 
         // Back button
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish()
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         // Open Color Picker screen
-        findViewById<ImageButton>(R.id.btnSelectColor).setOnClickListener {
+        findViewById<Button>(R.id.btnSelectColor).setOnClickListener {
             val intent = Intent(this, ColorPickerActivity::class.java)
             startActivityForResult(intent, COLOR_PICKER_REQUEST)
         }

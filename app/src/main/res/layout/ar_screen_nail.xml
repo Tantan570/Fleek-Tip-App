@@ -9,26 +9,26 @@
         android:layout_height="match_parent" />
 
     <!-- Bottom toolbar -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/ToolbarBottom"
+    <LinearLayout
+        android:id="@+id/layoutEyelashFilters"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="bottom"
-        android:background="#FFFFFF"
-        android:backgroundTint="@color/white"
-        android:alpha="0.1">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|center"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="#66000000">
 
         <!--button inside toolbar -->
-        <ImageButton
+        <Button
             android:id="@+id/btnSelectColor"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="#00FFFFFF"
-            android:src="@drawable/ic_select_color"
-            app:tint="@color/black"
-            android:contentDescription="Center Button"/>
-    </com.google.android.material.appbar.MaterialToolbar>
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/gray"
+            android:text="Select Filter" />
+    </LinearLayout>
 
     <!-- Back button-->
     <ImageButton

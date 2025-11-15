@@ -111,6 +111,7 @@ class ReservationActivity : AppCompatActivity() {
         btnCreate.setOnClickListener {
             val name = findViewById<EditText>(R.id.etName).text.toString().trim()
             val phone = findViewById<EditText>(R.id.etPhone).text.toString().trim()
+            val email = findViewById<EditText>(R.id.etEmail).text.toString().trim()
             val date = tvDate.text.toString()
             val time = tvTime.text.toString()
 
@@ -124,6 +125,7 @@ class ReservationActivity : AppCompatActivity() {
             val intent = Intent(this, ReservationConfirmationActivity::class.java).apply {
                 putExtra("name", name)
                 putExtra("phone", phone)
+                putExtra("email", email)
                 putExtra("service", selectedService)
                 putExtra("price", selectedPrice)
                 putExtra("date", date)

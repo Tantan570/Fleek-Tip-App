@@ -32,11 +32,9 @@
         <activity android:name=".ReservationActivity" />
         <activity android:name=".SocialRedirectActivity" />
         <activity android:name=".ReservationConfirmationActivity" />
-        <activity android:name=".NailArtActivity" />
+        <activity android:name=".NailArtActivity"/>
         <activity android:name=".ColorPickerActivity" />
         <activity android:name=".EyelashActivity"/>
-
-
 
         <!-- Camerakit API Token -->
         <meta-data

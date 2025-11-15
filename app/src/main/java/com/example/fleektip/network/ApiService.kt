@@ -14,6 +14,7 @@ interface ApiService {
     suspend fun insertBooking(
         @Field("name") name: String,
         @Field("phone") phone: String,
+        @Field("email") email: String,
         @Field("service_type") serviceType: String,
         @Field("date") date: String,
         @Field("time_slot") timeSlot: String,

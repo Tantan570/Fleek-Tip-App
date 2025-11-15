@@ -18,7 +18,7 @@ class ColorPickerActivity : AppCompatActivity() {
 
         setContentView(R.layout.color_picker)
 
-        // --- UI references ---
+        // UI references
         val btnSetA = findViewById<Button>(R.id.btnSetA)
         val btnSetB = findViewById<Button>(R.id.btnSetB)
         val btnShort = findViewById<Button>(R.id.btnNailShort)
@@ -26,7 +26,7 @@ class ColorPickerActivity : AppCompatActivity() {
         val btnLong = findViewById<Button>(R.id.btnNailLong)
         val togglePolish = findViewById<Switch>(R.id.switchNailPolish)
 
-        // --- Nail Polish Toggle ---
+        // Nail Polish Toggle
         togglePolish.setOnCheckedChangeListener { _, isChecked ->
             isNailPolishMode = isChecked
             if (isChecked) {
@@ -37,7 +37,7 @@ class ColorPickerActivity : AppCompatActivity() {
             }
         }
 
-        // --- Set Buttons (Premade Designs) ---
+        // Set Buttons (Premade Designs)
         btnSetA.setOnClickListener {
             if (isNailPolishMode) {
                 Toast.makeText(this, "Turn off Nail Polish mode first.", Toast.LENGTH_SHORT).show()
@@ -53,7 +53,7 @@ class ColorPickerActivity : AppCompatActivity() {
 
             Toast.makeText(this, "Set A selected", Toast.LENGTH_SHORT).show()
 
-            //Apply AR filter logic for "Set A" here before returning result
+            // Apply AR filter logic for "Set A" here before returning result
             val intent = Intent(this, NailArtActivity::class.java)
             intent.putExtra("PUSH_LENS", "2e3e6bf7-8231-4ed2-b476-32302d14a520")
             startActivity(intent)
@@ -76,7 +76,7 @@ class ColorPickerActivity : AppCompatActivity() {
 
             Toast.makeText(this, "Set B selected", Toast.LENGTH_SHORT).show()
 
-            //Apply AR filter logic for "Set B" here before returning result
+            // Apply AR filter logic for "Set B" here before returning result
             val intent = Intent(this, NailArtActivity::class.java)
             intent.putExtra("PUSH_LENS", "80bea708-21e6-4698-9c55-24e46eb8ec61")
             startActivity(intent)
@@ -85,7 +85,7 @@ class ColorPickerActivity : AppCompatActivity() {
             returnPremadeDesign("B")
         }
 
-        // --- Nail Length Buttons ---
+        // Nail Length Buttons
         btnShort.setOnClickListener {
             if (isNailPolishMode) {
                 Toast.makeText(this, "Nail Polish mode active — cannot change length.", Toast.LENGTH_SHORT).show()
@@ -119,7 +119,7 @@ class ColorPickerActivity : AppCompatActivity() {
             highlightLengthButtons(btnLong, btnShort, btnMedium)
         }
 
-        // --- Color Buttons ---
+        //Color Buttons
         val colors = mapOf(
             R.id.btnColorRed to "red",
             R.id.btnColorBlue to "blue",
@@ -133,7 +133,6 @@ class ColorPickerActivity : AppCompatActivity() {
 
                 //Nail Polish Mode
                 if (isNailPolishMode) {
-                    // Insert Logic for Nail Polish Here
                     val keycolor = colorName
                     when (keycolor){
                         "red" -> {
@@ -181,12 +180,11 @@ class ColorPickerActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                // Insert Logic for Nail Length + Color Here
-
+                // Logic for Nail Length + Color
                 val key = selectedColor + "-" + selectedNailLength
 
                 when (key) {
-                    //red
+                    // Nail Lengths for red
                     "red-short" -> {
                         val intent = Intent(this, NailArtActivity::class.java)
                         intent.putExtra("PUSH_LENS", "fba3cef5-2a77-44e9-bfe1-dae6e209822b")
@@ -202,7 +200,7 @@ class ColorPickerActivity : AppCompatActivity() {
                         intent.putExtra("PUSH_LENS", "70da906e-cf96-4ee2-8cff-ee62fd7de55b")
                         startActivity(intent)
                     }
-                    //blue
+                    // Nail Lengths for blue
                     "blue-short" -> {
                         val intent = Intent(this, NailArtActivity::class.java)
                         intent.putExtra("PUSH_LENS", "1a855963-a8a7-4616-b3ab-07e0f695950d")
@@ -234,7 +232,7 @@ class ColorPickerActivity : AppCompatActivity() {
                         intent.putExtra("PUSH_LENS", "467afe97-707d-433c-ac9c-964db83275d4")
                         startActivity(intent)
                     }
-                    //brown
+                    // Nail Length for brown
                     "brown-short" -> {
                         val intent = Intent(this, NailArtActivity::class.java)
                         intent.putExtra("PUSH_LENS", "b1a45548-82ad-4e29-9cfe-975fb2ee1421")
@@ -250,7 +248,7 @@ class ColorPickerActivity : AppCompatActivity() {
                         intent.putExtra("PUSH_LENS", "68afa8b9-5869-4ba2-a92b-6e049f9fc26a")
                         startActivity(intent)
                     }
-                    //pink
+                    //Nail Lengths for pink
                     "pink-short" -> {
                         val intent = Intent(this, NailArtActivity::class.java)
                         intent.putExtra("PUSH_LENS", "0199a3bc-cfca-442b-9936-97bfdb72aa8c")
@@ -286,10 +284,8 @@ class ColorPickerActivity : AppCompatActivity() {
         other2.setBackgroundTintList(getColorStateList(android.R.color.white))
     }
 
-    //For Handling only Set A or Set B selected
+    //For Handling only when Set A or Set B selected
     private fun returnPremadeDesign(setType: String) {
-        // Insert Logic for Set A or Set B Design
-
         val resultIntent = Intent().apply {
             putExtra("setType", setType)
             putExtra("premadeDesign", true)
