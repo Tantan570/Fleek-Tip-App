@@ -13,7 +13,6 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.reservation)
 
-        // Back button
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
         btnBack.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
@@ -23,11 +22,8 @@ class ReservationActivity : AppCompatActivity() {
         val btnEyelash = findViewById<Button>(R.id.btnEyelash)
         val btnBoth = findViewById<Button>(R.id.btnBoth)
 
-        // Track selected service and price
         var selectedService = ""
         var selectedPrice = 0
-
-        // Prices for services
         val servicePrices = mapOf(
             "Nail Art" to 350,
             "Eyelash Extension" to 300,
@@ -40,7 +36,6 @@ class ReservationActivity : AppCompatActivity() {
             btnBoth.isSelected = false
         }
 
-        // --- Service selection buttons ---
         btnNailArt.setOnClickListener {
             resetButtons()
             btnNailArt.isSelected = true
@@ -58,11 +53,11 @@ class ReservationActivity : AppCompatActivity() {
         btnBoth.setOnClickListener {
             resetButtons()
             btnBoth.isSelected = true
-            selectedService = "Both" // ✅ Fixed (previously said "Facial")
+            selectedService = "Both"
             selectedPrice = servicePrices[selectedService] ?: 0
         }
 
-        // Date Picker
+        // Date Picker, Converts to YYYY-MM-DD for backend
         val layoutDate = findViewById<LinearLayout>(R.id.layoutDate)
         val tvDate = findViewById<TextView>(R.id.tvDate)
         layoutDate.setOnClickListener {
@@ -79,6 +74,7 @@ class ReservationActivity : AppCompatActivity() {
                         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
                     )
                     tvDate.text = "${months[selectedMonth]} $selectedDay, $selectedYear"
+                    tvDate.tag = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
                 },
                 year, month, day
             )
@@ -96,40 +92,45 @@ class ReservationActivity : AppCompatActivity() {
             val timePicker = TimePickerDialog(
                 this,
                 { _, selectedHour, selectedMinute ->
+                    // Display in AM/PM
                     val amPm = if (selectedHour >= 12) "PM" else "AM"
                     val hourFormatted = if (selectedHour % 12 == 0) 12 else selectedHour % 12
                     val minuteFormatted = String.format("%02d", selectedMinute)
                     tvTime.text = "$hourFormatted:$minuteFormatted $amPm"
+
+                    // Converts to 24-hour format for backend
+                    val backendHour = String.format("%02d", selectedHour)
+                    tvTime.tag = "$backendHour:$minuteFormatted:00"
                 },
                 hour, minute, false
             )
             timePicker.show()
         }
 
-        // Create Reservation Button
         val btnCreate = findViewById<Button>(R.id.btnCreateReservation)
         btnCreate.setOnClickListener {
             val name = findViewById<EditText>(R.id.etName).text.toString().trim()
             val phone = findViewById<EditText>(R.id.etPhone).text.toString().trim()
             val email = findViewById<EditText>(R.id.etEmail).text.toString().trim()
-            val date = tvDate.text.toString()
-            val time = tvTime.text.toString()
+            val date = tvDate.tag as? String ?: ""
+            val timeApi = tvTime.tag as? String ?: ""
+            val timeDisplay = tvTime.text.toString()
 
-            // Check if all fields are filled
-            if (name.isBlank() || phone.isBlank() || date == "Select Date" || time == "Select Time" || selectedService.isBlank()) {
+            if (name.isBlank() || phone.isBlank() || date.isBlank() || timeApi.isBlank() || selectedService.isBlank()) {
                 Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Pass data to confirmation screen including price
             val intent = Intent(this, ReservationConfirmationActivity::class.java).apply {
                 putExtra("name", name)
                 putExtra("phone", phone)
                 putExtra("email", email)
                 putExtra("service", selectedService)
                 putExtra("price", selectedPrice)
-                putExtra("date", date)
-                putExtra("time", time)
+                putExtra("date_display", tvDate.text.toString())
+                putExtra("date_api", date)
+                putExtra("time_display", timeDisplay)
+                putExtra("time_api", timeApi)
             }
             startActivity(intent)
         }

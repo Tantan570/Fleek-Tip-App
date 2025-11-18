@@ -1,21 +1,29 @@
 package com.example.fleektip.network
 
-import com.example.fleektip.model.*
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    // ⚠️ Replace this with your actual server URL or local IP address
-    // Example (if you use XAMPP on local network): "http://192.168.1.10/salon_api/"
-    // Example (if using localhost for emulator): "http://10.0.2.2/salon_api/"
-    private const val BASE_URL = "http://10.0.2.2/salon_api/"
+    // Use "http://10.0.2.2/FLEEK_AND_TIP/" for local testing (Emulator)
+    //Use "http://192.168.x.x/FLEEK_AND_TIP/" for local testing (Real Device)
+    private const val BASE_URL = "http://10.0.2.2/FLEEK_AND_TIP/"
 
-    // Lazy initialization — Retrofit instance is created only when first used
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+
     val api: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()) // for JSON parsing
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
     }

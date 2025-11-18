@@ -75,7 +75,12 @@ dependencies {
     implementation("com.snap.camerakit:camerakit-extension-lens-push-to-device:1.44.0")
     implementation("com.snap.camerakit:camerakit-extension-auth-token-provider-loginkit:1.44.0")
 
+// OkHttp Logging Interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
 //Retrofit dependencies
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+
+
 }
