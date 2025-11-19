@@ -81,7 +81,7 @@ class EyelashActivity : AppCompatActivity(R.layout.ar_screen_eyelash) {
         val toggleMedium = findViewById<ToggleButton>(R.id.toggleMedium)
         val toggleLong = findViewById<ToggleButton>(R.id.toggleLong)
 
-        // Back button functionality
+        // Back button
         btnBack.setOnClickListener {
             finish()
         }

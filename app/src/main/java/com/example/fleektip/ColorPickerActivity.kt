@@ -31,7 +31,7 @@ class ColorPickerActivity : AppCompatActivity() {
             isNailPolishMode = isChecked
             if (isChecked) {
                 Toast.makeText(this, "Nail Polish mode ON", Toast.LENGTH_SHORT).show()
-                //can disable or reset other filters here if needed
+                // can disable or reset other filters here if needed
             } else {
                 Toast.makeText(this, "Nail Polish mode OFF", Toast.LENGTH_SHORT).show()
             }
@@ -119,7 +119,7 @@ class ColorPickerActivity : AppCompatActivity() {
             highlightLengthButtons(btnLong, btnShort, btnMedium)
         }
 
-        //Color Buttons
+        // Color Buttons
         val colors = mapOf(
             R.id.btnColorRed to "red",
             R.id.btnColorBlue to "blue",

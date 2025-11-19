@@ -58,7 +58,7 @@ class ReservationConfirmationActivity : AppCompatActivity() {
                         phone = phone,
                         service_type = serviceTypeMapped,
                         date = dateApi,
-                        time_slot = timeApi // backend-friendly 24-hour
+                        time_slot = timeApi
                     )
 
                     val response: ReservationResponse = RetrofitClient.api.insertBooking(request)
