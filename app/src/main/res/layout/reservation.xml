@@ -8,7 +8,7 @@
     android:padding="24dp"
     tools:context=".ReservationActivity">
 
-    <!-- Title -->
+    <!--Title-->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Subtitle -->
+    <!--Subtitle-->
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="4dp" />
 
-    <!-- Customer Name -->
+    <!--Customer Name-->
     <EditText
         android:id="@+id/etName"
         android:layout_width="0dp"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Phone Number -->
+    <!--Phone Number-->
     <EditText
         android:id="@+id/etPhone"
         android:layout_width="0dp"
@@ -61,32 +61,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp" />
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/magenta"
-        android:drawableStart="@drawable/ic_mail"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPhone" />
-
-    <!-- Service Type Label -->
+    <!--Service Type Label-->
     <TextView
         android:id="@+id/tvServiceType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:text="Select a Service"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/etPhone" />
 
-    <!-- Service Buttons -->
+    <!--Service Buttons-->
     <LinearLayout
         android:id="@+id/layoutServiceButtons"
         android:layout_width="0dp"
@@ -98,7 +84,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Nail Art Button -->
+        <!--Nail Art Button-->
         <Button
             android:id="@+id/btnNailArt"
             android:layout_width="0dp"
@@ -116,7 +102,7 @@
             android:layout_width="8dp"
             android:layout_height="wrap_content" />
 
-        <!-- Eyelash Button -->
+        <!--Eyelash Button-->
         <Button
             android:id="@+id/btnEyelash"
             android:layout_width="0dp"
@@ -134,7 +120,7 @@
             android:layout_width="8dp"
             android:layout_height="wrap_content" />
 
-        <!-- Both -->
+        <!--Both-->
         <Button
             android:id="@+id/btnBoth"
             android:layout_width="0dp"
@@ -149,7 +135,7 @@
     </LinearLayout>
 
 
-    <!-- Reservation Date -->
+    <!--Reservation Date-->
     <LinearLayout
         android:id="@+id/layoutDate"
         android:layout_width="0dp"
@@ -180,7 +166,7 @@
             android:textColor="@android:color/black" />
     </LinearLayout>
 
-    <!-- Arrival Time -->
+    <!--Arrival Time (UPDATED TO SPINNER)-->
     <LinearLayout
         android:id="@+id/layoutTime"
         android:layout_width="0dp"
@@ -189,8 +175,6 @@
         android:gravity="center_vertical"
         android:background="@drawable/bg_field"
         android:padding="12dp"
-        android:clickable="true"
-        android:focusable="true"
         app:layout_constraintTop_toBottomOf="@id/layoutDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -202,23 +186,24 @@
             android:src="@drawable/ic_clock"
             app:tint="@color/magenta" />
 
-        <TextView
-            android:id="@+id/tvTime"
+        <!--Select Time Spinner-->
+        <Spinner
+            android:id="@+id/spinnerTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
-            android:text="Select Time"
-            android:textColor="@android:color/black" />
+            android:spinnerMode="dropdown"
+            android:background="@android:color/transparent"
+            android:popupBackground="@android:color/white"
+            android:dropDownWidth="match_parent" />
     </LinearLayout>
 
-    <!-- Create Reservation Button -->
-
-    <!-- Back Button -->
+    <!--Create Reservation Button-->
     <Button
         android:id="@+id/btnCreateReservation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/pink_light"
         android:text="Create Reservation"
         android:textAllCaps="false"
@@ -228,6 +213,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutTime" />
 
+    <!--Back Button-->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"

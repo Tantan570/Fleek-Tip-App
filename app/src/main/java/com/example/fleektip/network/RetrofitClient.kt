@@ -7,9 +7,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    // Use "http://10.0.2.2/FLEEK_AND_TIP/" for local testing (Emulator)
-    //Use "http://192.168.x.x/FLEEK_AND_TIP/" for local testing (Real Device)
+    // Private base URL
     private const val BASE_URL = "http://10.0.2.2/FLEEK_AND_TIP/"
+
+    // getter declared as public to safely access BASE_URL
+    fun getBaseUrl(): String = BASE_URL
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

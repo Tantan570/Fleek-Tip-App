@@ -1,35 +1,53 @@
 package com.example.fleektip
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.fleektip.network.RetrofitClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
+import java.net.URLEncoder
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ReservationActivity : AppCompatActivity() {
+
+    private lateinit var spinnerTime: Spinner
+    private lateinit var tvDate: TextView
+    private var selectedService = ""
+    private var selectedPrice = 0
+    private val servicePrices = mapOf(
+        "Nail Art" to 350,
+        "Eyelash Extension" to 300,
+        "Both" to 650
+    )
+
+    private var availableTimes: List<String> = emptyList() // Store available times for selected date
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.reservation)
 
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        btnBack.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-
         val btnNailArt = findViewById<Button>(R.id.btnNailArt)
         val btnEyelash = findViewById<Button>(R.id.btnEyelash)
         val btnBoth = findViewById<Button>(R.id.btnBoth)
+        val btnCreate = findViewById<Button>(R.id.btnCreateReservation)
 
-        var selectedService = ""
-        var selectedPrice = 0
-        val servicePrices = mapOf(
-            "Nail Art" to 350,
-            "Eyelash Extension" to 300,
-            "Both" to 650
-        )
+        tvDate = findViewById(R.id.tvDate)
+        spinnerTime = findViewById(R.id.spinnerTime)
 
+        // Show initial hint in spinner
+        setSpinnerHint("Please select a date first")
+
+        // Service selection
         fun resetButtons() {
             btnNailArt.isSelected = false
             btnEyelash.isSelected = false
@@ -57,9 +75,8 @@ class ReservationActivity : AppCompatActivity() {
             selectedPrice = servicePrices[selectedService] ?: 0
         }
 
-        // Date Picker, Converts to YYYY-MM-DD for backend
+        // Date picker
         val layoutDate = findViewById<LinearLayout>(R.id.layoutDate)
-        val tvDate = findViewById<TextView>(R.id.tvDate)
         layoutDate.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -75,64 +92,145 @@ class ReservationActivity : AppCompatActivity() {
                     )
                     tvDate.text = "${months[selectedMonth]} $selectedDay, $selectedYear"
                     tvDate.tag = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+
+                    // Fetch available times after selecting date
+                    fetchAvailableTimes(tvDate.tag as String)
                 },
                 year, month, day
             )
             datePicker.show()
         }
 
-        // Time Picker
-        val layoutTime = findViewById<LinearLayout>(R.id.layoutTime)
-        val tvTime = findViewById<TextView>(R.id.tvTime)
-        layoutTime.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val hour = calendar.get(Calendar.HOUR_OF_DAY)
-            val minute = calendar.get(Calendar.MINUTE)
-
-            val timePicker = TimePickerDialog(
-                this,
-                { _, selectedHour, selectedMinute ->
-                    // Display in AM/PM
-                    val amPm = if (selectedHour >= 12) "PM" else "AM"
-                    val hourFormatted = if (selectedHour % 12 == 0) 12 else selectedHour % 12
-                    val minuteFormatted = String.format("%02d", selectedMinute)
-                    tvTime.text = "$hourFormatted:$minuteFormatted $amPm"
-
-                    // Converts to 24-hour format for backend
-                    val backendHour = String.format("%02d", selectedHour)
-                    tvTime.tag = "$backendHour:$minuteFormatted:00"
-                },
-                hour, minute, false
-            )
-            timePicker.show()
-        }
-
-        val btnCreate = findViewById<Button>(R.id.btnCreateReservation)
+        // Create reservation
         btnCreate.setOnClickListener {
             val name = findViewById<EditText>(R.id.etName).text.toString().trim()
             val phone = findViewById<EditText>(R.id.etPhone).text.toString().trim()
-            val email = findViewById<EditText>(R.id.etEmail).text.toString().trim()
-            val date = tvDate.tag as? String ?: ""
-            val timeApi = tvTime.tag as? String ?: ""
-            val timeDisplay = tvTime.text.toString()
+            val dateApi = tvDate.tag as? String ?: ""
+            val timeSelected = spinnerTime.selectedItem as? String ?: ""
 
-            if (name.isBlank() || phone.isBlank() || date.isBlank() || timeApi.isBlank() || selectedService.isBlank()) {
+            if (name.isBlank() || phone.isBlank() || dateApi.isBlank() || timeSelected.isBlank() || selectedService.isBlank()) {
                 Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val intent = Intent(this, ReservationConfirmationActivity::class.java).apply {
-                putExtra("name", name)
-                putExtra("phone", phone)
-                putExtra("email", email)
-                putExtra("service", selectedService)
-                putExtra("price", selectedPrice)
-                putExtra("date_display", tvDate.text.toString())
-                putExtra("date_api", date)
-                putExtra("time_display", timeDisplay)
-                putExtra("time_api", timeApi)
+            // Convert selected time to 24-hour format for backend
+            val time24 = convertTo24Hour(timeSelected)
+
+            // Check if selected time is still available in list
+            if (!availableTimes.contains(timeSelected)) {
+                Toast.makeText(this, "Selected time is no longer available", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
-            startActivity(intent)
+
+            // Check with backend if slot is still free
+            lifecycleScope.launch {
+                val available = isSlotAvailable(dateApi, time24)
+                if (!available) {
+                    Toast.makeText(this@ReservationActivity, "Selected slot is already booked", Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+
+                // Proceed to confirmation activity
+                val intent = Intent(this@ReservationActivity, ReservationConfirmationActivity::class.java).apply {
+                    putExtra("name", name)
+                    putExtra("phone", phone)
+                    putExtra("service", selectedService)
+                    putExtra("price", selectedPrice)
+                    putExtra("date_display", tvDate.text.toString())
+                    putExtra("date_api", dateApi)
+                    putExtra("time_display", timeSelected) // 12-hour format for UI
+                    putExtra("time_api", time24) // 24-hour format for backend
+                }
+                startActivity(intent)
+            }
+        }
+
+        // Back button
+        btnBack.setOnClickListener { finish() }
+    }
+
+    // Fetch available times from PHP backend
+    private fun fetchAvailableTimes(date: String) {
+        lifecycleScope.launch {
+            try {
+                val client = OkHttpClient()
+                val encodedDate = URLEncoder.encode(date, "UTF-8")
+                val url = "${RetrofitClient.getBaseUrl()}get_available_times.php?date=$encodedDate"
+                val request = Request.Builder().url(url).build()
+                val response = withContext(Dispatchers.IO) { client.newCall(request).execute() }
+                val responseText = response.body?.string() ?: ""
+                val json = JSONObject(responseText)
+
+                if (json.getBoolean("success")) {
+                    val times = json.getJSONArray("times")
+                    val list = mutableListOf<String>()
+                    for (i in 0 until times.length()) {
+                        list.add(times.getString(i))
+                    }
+
+                    availableTimes = list // store fetched times
+
+                    val adapter = ArrayAdapter(
+                        this@ReservationActivity,
+                        android.R.layout.simple_spinner_item,
+                        availableTimes
+                    )
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinnerTime.adapter = adapter
+                } else {
+                    Toast.makeText(this@ReservationActivity, "No available times", Toast.LENGTH_SHORT).show()
+                    setSpinnerHint("No available times")
+                    availableTimes = emptyList()
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(this@ReservationActivity, "Error fetching times", Toast.LENGTH_SHORT).show()
+                setSpinnerHint("Error fetching times")
+                availableTimes = emptyList()
+            }
+        }
+    }
+
+    // Helper to show a hint in spinner
+    private fun setSpinnerHint(hint: String) {
+        val adapter = ArrayAdapter(
+            this@ReservationActivity,
+            android.R.layout.simple_spinner_item,
+            listOf(hint)
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerTime.adapter = adapter
+    }
+
+    // Backend check if slot is available
+    private suspend fun isSlotAvailable(date: String, time24: String): Boolean {
+        return try {
+            val client = OkHttpClient()
+            val encodedDate = URLEncoder.encode(date, "UTF-8")
+            val encodedTime = URLEncoder.encode(time24, "UTF-8")
+            val url = "${RetrofitClient.getBaseUrl()}check_slot.php?date=$encodedDate&time=$encodedTime"
+            val request = Request.Builder().url(url).build()
+            val response = withContext(Dispatchers.IO) { client.newCall(request).execute() }
+            val responseText = response.body?.string() ?: ""
+            val json = JSONObject(responseText)
+            json.getBoolean("available")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    // Convert 12-hour time (AM/PM) to 24-hour format (For Checking)
+    private fun convertTo24Hour(time12: String): String {
+        return try {
+            val sdf12 = SimpleDateFormat("h:mm a", Locale.US)
+            val sdf24 = SimpleDateFormat("HH:mm:ss", Locale.US)
+            val date = sdf12.parse(time12)
+            sdf24.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "00:00:00"
         }
     }
 }

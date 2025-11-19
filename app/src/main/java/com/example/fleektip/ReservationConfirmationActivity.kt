@@ -20,7 +20,6 @@ class ReservationConfirmationActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("name") ?: ""
         val phone = intent.getStringExtra("phone") ?: ""
-        val email = intent.getStringExtra("email") ?: ""
         val service = intent.getStringExtra("service") ?: ""
         val price = intent.getIntExtra("price", 0).toDouble()
         val dateDisplay = intent.getStringExtra("date_display") ?: ""
@@ -30,7 +29,6 @@ class ReservationConfirmationActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.tvConfirmName).text = name
         findViewById<TextView>(R.id.tvConfirmPhone).text = phone
-        findViewById<TextView>(R.id.tvConfirmEmail).text = email
         findViewById<TextView>(R.id.tvConfirmService).text = service
         findViewById<TextView>(R.id.tvConfirmDate).text = dateDisplay
         findViewById<TextView>(R.id.tvConfirmTime).text = timeDisplay
