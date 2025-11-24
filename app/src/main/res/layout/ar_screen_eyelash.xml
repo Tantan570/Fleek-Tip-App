@@ -5,7 +5,7 @@
 
     <!-- Camera preview -->
     <ViewStub
-        android:id="@+id/camera_kit_stub_eyelash"
+        android:id="@+id/camera_kit_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -21,48 +21,39 @@
         app:tint="@color/white"
         android:contentDescription="Back Button" />
 
-    <!-- Bottom filter toggle buttons -->
-    <LinearLayout
-        android:id="@+id/layoutEyelashFilters"
+    <!-- Bottom toolbar -->
+    <RelativeLayout
+        android:id="@+id/layoutEyelashToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom|center"
-        android:gravity="center"
-        android:padding="16dp"
-        android:background="#66000000">
+        android:layout_height="200dp"
+        android:layout_gravity="bottom"
+        android:background="#66000000"
+        android:padding="20dp">
 
-        <ToggleButton
-            android:id="@+id/toggleShort"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textOff="Short"
-            android:textOn="Short"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/gray"/>
+        <!-- Camera button (centered) -->
+        <ImageButton
+            android:id="@+id/btnScreenshot"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:padding="16dp"
+            android:background="@drawable/rounded_button_blank"
+            android:src="@drawable/ic_camera"
+            app:tint="@android:color/white"
+            android:layout_centerInParent="true" />
 
-        <ToggleButton
-            android:id="@+id/toggleMedium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textOff="Medium"
-            android:textOn="Medium"
-            android:textColor="@android:color/white"
+        <!-- Select Filter button (left of center) -->
+        <Button
+            android:id="@+id/btnSelectFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/btnScreenshot"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/gray"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
+            android:padding="12dp"
+            android:text="Select Filter"
+            android:textColor="@android:color/white" />
 
-        <ToggleButton
-            android:id="@+id/toggleLong"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textOff="Long"
-            android:textOn="Long"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/gray"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

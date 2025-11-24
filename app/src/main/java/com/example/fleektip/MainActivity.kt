@@ -2,58 +2,50 @@ package com.example.fleektip
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var myWebView: WebView
+    private lateinit var tryOnButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_menu)
 
-        //Move to reservation Screen
-        val btnReservation = findViewById<Button>(R.id.btnReservation)
-        btnReservation.setOnClickListener {
-            val intent = Intent(this, ReservationActivity::class.java)
+        myWebView = findViewById(R.id.webview)
+
+        val webSettings = myWebView.settings
+        webSettings.javaScriptEnabled = true
+        webSettings.domStorageEnabled = true
+        webSettings.loadsImagesAutomatically = true
+
+        myWebView.webViewClient = WebViewClient()
+        myWebView.webChromeClient = WebChromeClient()
+
+        myWebView.loadUrl("https://mjluscious.online/")
+
+        // Back button behavior
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (myWebView.canGoBack()) {
+                    myWebView.goBack()
+                } else {
+                    finish()
+                }
+            }
+        })
+
+        //Try-On Floating Button
+        tryOnButton = findViewById(R.id.tryOnButton)
+        tryOnButton.setOnClickListener {
+            val intent = Intent(this, ArSelectActivity::class.java)
             startActivity(intent)
         }
-
-        //Buttons for opening the link for the socials
-        val btnFacebook = findViewById<ImageButton>(R.id.btn_facebook)
-        val btnTiktok = findViewById<ImageButton>(R.id.btn_tiktok)
-
-        //Pressing either button will move you to "SocialRedirectActivity.kt" and open the social media page
-
-        // Facebook button
-        btnFacebook.setOnClickListener {
-            val loadingIntent = Intent(this, SocialRedirectActivity::class.java)
-            loadingIntent.putExtra("platform", "facebook")
-            startActivity(loadingIntent)
-        }
-
-        // TikTok button
-        btnTiktok.setOnClickListener {
-            val loadingIntent = Intent(this, SocialRedirectActivity::class.java)
-            loadingIntent.putExtra("platform", "tiktok")
-            startActivity(loadingIntent)
-        }
-
-        // Split Button Parts (Nail Art and Eyelash)
-        val btnNailArt = findViewById<TextView>(R.id.btnNailArt)
-        val btnEyelash = findViewById<TextView>(R.id.btnEyelash)
-
-        // Clicking Nail Art
-        btnNailArt.setOnClickListener {
-            val intent = Intent(this, NailArtActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Clicking Eyelash
-        btnEyelash.setOnClickListener {
-            val intent = Intent(this, EyelashActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 }

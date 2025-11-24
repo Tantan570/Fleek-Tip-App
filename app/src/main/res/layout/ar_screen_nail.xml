@@ -3,41 +3,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Camera View Stub -->
     <ViewStub
         android:id="@+id/camera_kit_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Bottom toolbar -->
-    <LinearLayout
+    <!-- Top Toolbar -->
+    <RelativeLayout
+        android:id="@+id/TopToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:background="#66000000"
+        android:padding="20dp">
+
+        <!-- Back Button (TOP LEFT) -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <!-- Bottom Toolbar -->
+    <RelativeLayout
         android:id="@+id/layoutEyelashFilters"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom|center"
-        android:gravity="center"
-        android:padding="16dp"
-        android:background="#66000000">
+        android:layout_height="200dp"
+        android:layout_gravity="bottom"
+        android:background="#66000000"
+        android:padding="20dp">
 
-        <!--button inside toolbar -->
+        <!-- Camera Button (CENTERED ALWAYS) -->
+        <ImageButton
+            android:id="@+id/btnScreenshot"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:padding="16dp"
+            android:background="@drawable/rounded_button_blank"
+            android:src="@drawable/ic_camera"
+            app:tint="@android:color/white"
+            android:layout_centerInParent="true" />
+
+        <!-- Select Filter (LEFT of center) -->
         <Button
             android:id="@+id/btnSelectColor"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@android:color/white"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
             android:backgroundTint="@color/gray"
-            android:text="Select Filter" />
-    </LinearLayout>
+            android:padding="12dp"
+            android:text="Select Filter"
+            android:textColor="@android:color/white" />
 
-    <!-- Back button-->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="top|start"
-        android:layout_margin="16dp"
-        android:backgroundTint="#00FFFFFF"
-        android:src="@drawable/ic_back"
-        app:tint="@color/white"/>
+    </RelativeLayout>
+
 </FrameLayout>

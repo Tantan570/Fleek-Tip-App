@@ -3,9 +3,14 @@ package com.example.fleektip
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
+import android.graphics.Bitmap
+import android.os.*
+import android.provider.MediaStore
 import android.util.Log
-import android.widget. *
+import android.view.PixelCopy
+import android.view.View
+import android.view.ViewStub
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,6 +20,11 @@ import com.snap.camerakit.lenses.LensesComponent
 import com.snap.camerakit.lenses.whenHasFirst
 import com.snap.camerakit.support.camerax.CameraXImageProcessorSource
 import com.snap.camerakit.supported
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
+import android.media.MediaScannerConnection
+import java.io.ByteArrayOutputStream
 
 class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
 
@@ -23,28 +33,22 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
 
     companion object {
         const val LENS_GROUP_ID = "f183295f-d40e-41d8-a045-860713e44243"
-
-        // Request code for color picker
         const val COLOR_PICKER_REQUEST = 1001
     }
 
     // Permission request launcher
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                startPreview()
-            } else {
-                Log.e("CameraKit", "Camera permission denied by user.")
-            }
+            if (isGranted) startPreview()
+            else Log.e("CameraKit", "Camera permission denied.")
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Back button
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        btnBack.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
+            startActivity(Intent(this, ArSelectActivity::class.java))
         }
 
         // Open Color Picker screen
@@ -53,41 +57,44 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
             startActivityForResult(intent, COLOR_PICKER_REQUEST)
         }
 
-        // Check if Camera Kit is supported
+        // Screenshot button
+        findViewById<ImageButton>(R.id.btnScreenshot).setOnClickListener {
+            takeScreenshot()
+        }
+
+        // Check CameraKit support
         if (!supported(this)) {
-            Log.e("CameraKit", "Device not supported for CameraKit.")
+            Toast.makeText(this, "CameraKit not supported on this device.", Toast.LENGTH_LONG).show()
             finish()
             return
         }
 
         imageProcessorSource = CameraXImageProcessorSource(
-            context = this, lifecycleOwner = this
+            context = this,
+            lifecycleOwner = this
         )
 
-        // Start preview if permission granted
+        // Camera permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_GRANTED
-        ) {
-            startPreview()
-        } else {
-            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-        }
+        ) startPreview()
+        else requestPermissionLauncher.launch(Manifest.permission.CAMERA)
 
-        val getLens = intent.getStringExtra("PUSH_LENS")
-        val LENS_ID = getLens.toString()
+        val LENS_ID = intent.getStringExtra("PUSH_LENS").toString()
 
-        // Initialize CameraKit session
+        // Attach CameraKit session to ViewStub
+        val cameraStub = findViewById<ViewStub>(R.id.camera_kit_stub)
         cameraKitSession = Session(context = this) {
             imageProcessorSource(imageProcessorSource)
-            attachTo(findViewById(R.id.camera_kit_stub))
+            attachTo(cameraStub)
         }
-            .apply {
-            lenses.repository.observe(
-                LensesComponent.Repository.QueryCriteria.ById(LENS_ID, LENS_GROUP_ID)
-            ) { result ->
-                result.whenHasFirst { requestedLens ->
-                    lenses.processor.apply(requestedLens)
-                }
+
+        // Apply requested AR Lens
+        cameraKitSession.lenses.repository.observe(
+            LensesComponent.Repository.QueryCriteria.ById(LENS_ID, LENS_GROUP_ID)
+        ) { result ->
+            result.whenHasFirst { lens ->
+                cameraKitSession.lenses.processor.apply(lens)
             }
         }
     }
@@ -96,7 +103,67 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
         imageProcessorSource.startPreview(false)
     }
 
-    // Receive the selected color and nail length from ColorPickerActivity
+    // -------------------------------------------------
+    // Screenshot (captures full window including CameraKit)
+    // -------------------------------------------------
+    private fun takeScreenshot() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            Toast.makeText(this, "Screenshot requires Android 8.0+", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val bitmap = Bitmap.createBitmap(window.decorView.width, window.decorView.height, Bitmap.Config.ARGB_8888)
+
+        try {
+            PixelCopy.request(
+                window,
+                bitmap,
+                PixelCopy.OnPixelCopyFinishedListener { copyResult ->
+                    if (copyResult == PixelCopy.SUCCESS) {
+                        saveToGallery(bitmap)
+                        Toast.makeText(this, "Screenshot saved!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Failed to capture screenshot.", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                Handler(Looper.getMainLooper())
+            )
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error capturing screenshot: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Save bitmap to dedicated folder and refresh gallery
+    private fun saveToGallery(bitmap: Bitmap) {
+        try {
+            val picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val folder = File(picturesDir, "FleekTip")
+            if (!folder.exists()) folder.mkdirs()
+
+            val fileName = "AR_Screenshot_${System.currentTimeMillis()}.jpg"
+            val file = File(folder, fileName)
+
+            val outputStream: OutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, outputStream)
+            outputStream.flush()
+            outputStream.close()
+
+            // Make it visible in gallery immediately
+            MediaScannerConnection.scanFile(
+                this,
+                arrayOf(file.absolutePath),
+                arrayOf("image/jpeg"),
+                null
+            )
+
+            Toast.makeText(this, "Screenshot saved to ${file.absolutePath}", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Failed to save screenshot: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Receive color picker result
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -111,7 +178,6 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
                 append("Nail Length: ${selectedNailLength ?: "none"}")
             }
 
-            // You can implement your overlay logic here
             Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
         }
     }

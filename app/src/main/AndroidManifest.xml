@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fleektip">
 
-    <!-- ✅ Permissions -->
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -22,25 +21,23 @@
         <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
-        <!-- Other Layouts -->
-        <activity android:name=".ReservationActivity" />
-        <activity android:name=".SocialRedirectActivity" />
-        <activity android:name=".ReservationConfirmationActivity" />
-        <activity android:name=".NailArtActivity"/>
-        <activity android:name=".ColorPickerActivity" />
-        <activity android:name=".EyelashActivity"/>
+    <!-- Other Activities -->
+    <activity android:name=".NailArtActivity"/>
+    <activity android:name=".ColorPickerActivity" />
+    <activity android:name=".EyelashActivity"/>
+        <activity android:name=".ArSelectActivity" />
 
         <!-- Camerakit API Token -->
-        <meta-data
-            android:name="com.snap.camerakit.api.token"
-            android:value="eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzU3OTIzNTk3LCJzdWIiOiJhMzk2M2MxZi1kNjcxLTQyMmUtODA5MS1hYTI3ZTY3MGU1NzB-U1RBR0lOR35iNTY3N2I1YS0xNjNiLTRiNTQtYTRjOC0wNzM2OTdkMTFmOGEifQ.RbyTgXPJe17DE4bKmAV0fY1Y7Oqzg7YN__t4QvI7cCQ" />
+    <meta-data
+        android:name="com.snap.camerakit.api.token"
+        android:value="eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzU3OTIzNTk3LCJzdWIiOiJhMzk2M2MxZi1kNjcxLTQyMmUtODA5MS1hYTI3ZTY3MGU1NzB-U1RBR0lOR35iNTY3N2I1YS0xNjNiLTRiNTQtYTRjOC0wNzM2OTdkMTFmOGEifQ.RbyTgXPJe17DE4bKmAV0fY1Y7Oqzg7YN__t4QvI7cCQ" />
 
-    </application>
-</manifest>
+</application>
+    </manifest>

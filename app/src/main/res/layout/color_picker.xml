@@ -11,52 +11,62 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Title -->
+        <!-- Nail Length Section -->
         <TextView
-            android:id="@+id/tvSelectNailArtSet"
+            android:id="@+id/tvSelectLength"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Nail Art Set"
-            android:textSize="20sp"
+            android:text="Select Nail Length"
+            android:textSize="18sp"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_light"
-            android:layout_marginBottom="20dp" />
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginBottom="12dp" />
 
-        <!-- Set Buttons -->
         <LinearLayout
-            android:id="@+id/layoutSets"
+            android:id="@+id/layoutLengths"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginBottom="28dp">
+            android:layout_marginBottom="20dp">
 
             <Button
-                android:id="@+id/btnSetA"
+                android:id="@+id/btnNailShort"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="10dp"
-                android:text="Set A"
+                android:layout_marginEnd="8dp"
+                android:text="Short"
                 android:textAllCaps="false"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
                 android:background="@drawable/rounded_button_blank" />
 
             <Button
-                android:id="@+id/btnSetB"
+                android:id="@+id/btnNailMedium"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="Set B"
+                android:layout_marginEnd="8dp"
+                android:text="Medium"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_button_blank" />
+
+            <Button
+                android:id="@+id/btnNailLong"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Long"
                 android:textAllCaps="false"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@color/black"
                 android:background="@drawable/rounded_button_blank" />
         </LinearLayout>
 
-        <!-- Color Title -->
+        <!-- Color Selection -->
         <TextView
             android:id="@+id/tvSelectColor"
             android:layout_width="wrap_content"
@@ -67,7 +77,6 @@
             android:fontFamily="@font/poppins_medium"
             android:layout_marginBottom="12dp" />
 
-        <!-- Color Buttons Grid -->
         <GridLayout
             android:id="@+id/gridColors"
             android:layout_width="match_parent"
@@ -134,60 +143,188 @@
                 android:checked="false" />
         </LinearLayout>
 
-        <!-- Nail Length Section -->
         <TextView
-            android:id="@+id/tvSelectLength"
+            android:id="@+id/tvSelectSet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Nail Length"
+            android:text="Select Nail Art Set"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_medium"
             android:layout_marginBottom="12dp" />
 
-        <LinearLayout
-            android:id="@+id/layoutLengths"
+        <!-- Nail Art Sets -->
+
+        <!-- SHORT -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Short Nail Art Sets"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginBottom="8dp" />
+
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="20dp">
+            android:fillViewport="true"
+            android:layout_marginBottom="16dp">
 
-            <Button
-                android:id="@+id/btnNailShort"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:text="Short"
-                android:textAllCaps="false"
-                android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/black"
-                android:background="@drawable/rounded_button_blank" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnNailMedium"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                android:text="Medium"
-                android:textAllCaps="false"
-                android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/black"
-                android:background="@drawable/rounded_button_blank" />
+                <Button android:id="@+id/btnShortSet1"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set A"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
 
-            <Button
-                android:id="@+id/btnNailLong"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="Long"
-                android:textAllCaps="false"
-                android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/black"
-                android:background="@drawable/rounded_button_blank" />
-        </LinearLayout>
+                <Button android:id="@+id/btnShortSet2"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set B"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnShortSet3"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set C"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnShortSet4"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set D"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnShortSet5"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set E"
+                    android:background="@drawable/rounded_button_blank"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- MEDIUM -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Nail Art Sets"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginBottom="8dp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button android:id="@+id/btnMediumSet1"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set A"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnMediumSet2"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set B"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnMediumSet3"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set C"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnMediumSet4"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set D"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnMediumSet5"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set E"
+                    android:background="@drawable/rounded_button_blank"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- LONG -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Long Nail Art Sets"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginBottom="8dp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:layout_marginBottom="28dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button android:id="@+id/btnLongSet1"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set A"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnLongSet2"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set B"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnLongSet3"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set C"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnLongSet4"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set D"
+                    android:background="@drawable/rounded_button_blank"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button android:id="@+id/btnLongSet5"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Set E"
+                    android:background="@drawable/rounded_button_blank"/>
+            </LinearLayout>
+        </HorizontalScrollView>
 
     </LinearLayout>
 </ScrollView>
