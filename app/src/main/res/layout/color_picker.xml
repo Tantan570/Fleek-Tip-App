@@ -179,35 +179,35 @@
                 <Button android:id="@+id/btnShortSet1"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set A"
+                    android:text="Elegant Red"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnShortSet2"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set B"
+                    android:text="Nature's Beauty"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnShortSet3"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set C"
+                    android:text="White Panda"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnShortSet4"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set D"
+                    android:text="Shortcake"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnShortSet5"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set E"
+                    android:text="Best Friends"
                     android:background="@drawable/rounded_button_blank"/>
             </LinearLayout>
         </HorizontalScrollView>
@@ -236,35 +236,35 @@
                 <Button android:id="@+id/btnMediumSet1"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set A"
+                    android:text="Elegant Red"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnMediumSet2"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set B"
+                    android:text="Nature's Beauty"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnMediumSet3"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set C"
+                    android:text="White Panda"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnMediumSet4"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set D"
+                    android:text="Shortcake"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnMediumSet5"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set E"
+                    android:text="Best Friends"
                     android:background="@drawable/rounded_button_blank"/>
             </LinearLayout>
         </HorizontalScrollView>
@@ -293,35 +293,35 @@
                 <Button android:id="@+id/btnLongSet1"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set A"
+                    android:text="Elegant Red"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnLongSet2"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set B"
+                    android:text="Nature's Beauty"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnLongSet3"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set C"
+                    android:text="White Panda"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnLongSet4"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set D"
+                    android:text="Shortcake"
                     android:background="@drawable/rounded_button_blank"
                     android:layout_marginEnd="8dp"/>
 
                 <Button android:id="@+id/btnLongSet5"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
-                    android:text="Set E"
+                    android:text="Best Friends"
                     android:background="@drawable/rounded_button_blank"/>
             </LinearLayout>
         </HorizontalScrollView>

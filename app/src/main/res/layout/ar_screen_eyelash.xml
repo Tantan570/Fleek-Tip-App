@@ -5,7 +5,7 @@
 
     <!-- Camera preview -->
     <ViewStub
-        android:id="@+id/camera_kit_stub"
+        android:id="@+id/camera_kit_stub_eyelash"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

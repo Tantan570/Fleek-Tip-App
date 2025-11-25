@@ -197,23 +197,23 @@ class ColorPickerActivity : AppCompatActivity() {
         // Apply AR lens based on length
         val intent = Intent(this, NailArtActivity::class.java)
         val pushLens = when("$length-$setLetter") {
-            "short-A" -> "2e3e6bf7-8231-4ed2-b476-32302d14a520"
-            "short-B" -> "80bea708-21e6-4698-9c55-24e46eb8ec61"
-            "short-C" -> "xxxxxx"
-            "short-D" -> "xxxxxx"
-            "short-E" -> "xxxxxx"
+            "short-A" -> "688c1e59-b88d-4239-a924-c23932aab922"
+            "short-B" -> "ab4325bb-abf2-460e-9109-578b250b9658"
+            "short-C" -> "bde53b47-4b6d-4395-91ed-a98b261f6a03"
+            "short-D" -> "be91f30b-289b-473a-8274-cb4b0b712063"
+            "short-E" -> "0657e3a8-7606-4814-bd2f-e14dc00beae3"
 
-            "medium-A" -> "yyyyyy"
-            "medium-B" -> "yyyyyy"
-            "medium-C" -> "yyyyyy"
-            "medium-D" -> "yyyyyy"
-            "medium-E" -> "yyyyyy"
+            "medium-A" -> "2e3e6bf7-8231-4ed2-b476-32302d14a520"
+            "medium-B" -> "80bea708-21e6-4698-9c55-24e46eb8ec61"
+            "medium-C" -> "7ee228e3-11d6-4104-9a6a-468ac98f866e"
+            "medium-D" -> "6580e293-769b-4e7f-b40c-8496801e64a6"
+            "medium-E" -> "ff5933c1-6c83-4aa1-af21-54a398044621"
 
-            "long-A" -> "zzzzzz"
-            "long-B" -> "zzzzzz"
-            "long-C" -> "zzzzzz"
-            "long-D" -> "zzzzzz"
-            "long-E" -> "zzzzzz"
+            "long-A" -> "fe2a66bb-dc48-409d-89be-6ca9e6f8b265"
+            "long-B" -> "a4583890-88a2-4ff0-91df-7949b675de92"
+            "long-C" -> "47b672a9-4403-425d-8125-8f92386bf267"
+            "long-D" -> "7a1b75ba-e232-4044-aedb-5872b06fc5ce"
+            "long-E" -> "a0c06bd3-fcf4-48c6-972d-e406607186f3"
 
             else -> ""
         }
