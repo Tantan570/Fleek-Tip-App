@@ -72,9 +72,12 @@ class EyelashActivity : AppCompatActivity(R.layout.ar_screen_eyelash) {
         }
 
         // Back button
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            val intent = Intent(this, ArSelectActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
             finish()
-            startActivity(Intent(this, ArSelectActivity::class.java))
         }
 
         // Screenshot button

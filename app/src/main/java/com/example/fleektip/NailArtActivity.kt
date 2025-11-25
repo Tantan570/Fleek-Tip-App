@@ -47,8 +47,12 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
         super.onCreate(savedInstanceState)
 
         // Back button
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            startActivity(Intent(this, ArSelectActivity::class.java))
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            val intent = Intent(this, ArSelectActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
         }
 
         // Open Color Picker screen
