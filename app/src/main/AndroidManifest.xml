@@ -32,6 +32,8 @@
     <activity android:name=".ColorPickerActivity" />
     <activity android:name=".EyelashActivity"/>
         <activity android:name=".ArSelectActivity" />
+        <activity android:name=".EyelashPickerActivity" />
+
 
         <!-- Camerakit API Token -->
     <meta-data

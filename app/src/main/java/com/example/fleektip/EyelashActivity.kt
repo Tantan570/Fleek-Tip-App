@@ -24,6 +24,7 @@ import java.io.FileOutputStream
 import java.io.OutputStream
 import android.media.MediaScannerConnection
 import android.os.Environment
+import android.widget.Button
 
 class EyelashActivity : AppCompatActivity(R.layout.ar_screen_eyelash) {
 
@@ -90,7 +91,7 @@ class EyelashActivity : AppCompatActivity(R.layout.ar_screen_eyelash) {
         }
 
         // Open Eyelash Picker
-        findViewById<ImageButton?>(R.id.btnSelectFilter)?.setOnClickListener {
+        findViewById<Button?>(R.id.btnSelectFilter)?.setOnClickListener {
             val intent = Intent(this, EyelashPickerActivity::class.java)
             startActivityForResult(intent, EYE_LASH_PICKER_REQUEST)
         }

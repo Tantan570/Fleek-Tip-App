@@ -9,17 +9,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Top back button -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="top|start"
-        android:layout_margin="16dp"
-        android:backgroundTint="#00FFFFFF"
-        android:src="@drawable/ic_back"
-        app:tint="@color/white"
-        android:contentDescription="Back Button" />
+    <!-- Top Toolbar -->
+    <RelativeLayout
+        android:id="@+id/TopToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:background="#66000000"
+        android:padding="20dp">
+
+        <!-- Back Button (TOP LEFT) -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
 
     <!-- Bottom toolbar -->
     <RelativeLayout
