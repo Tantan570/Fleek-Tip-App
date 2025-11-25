@@ -167,12 +167,12 @@ class EyelashActivity : AppCompatActivity(R.layout.ar_screen_eyelash) {
                 "Classic" to "Light" -> "2005eceb-31fd-4fc6-8b6f-b2495e48cc38" // add lens ID
                 "Classic" to "Medium" -> "c761acd6-d5ff-4ce0-bc25-d4209a3d54a8"
                 "Classic" to "Heavy" -> "c0b51dfe-7e83-4c02-bdc9-8438ec08602c"
-                "Cat Eyes" to "Light" -> "a5becf40-5103-411c-af8c-ff1d04525820"
-                "Cat Eyes" to "Medium" -> "9310f8a7-95d5-42a3-94e6-d8c5c8ec6bd2"
-                "Cat Eyes" to "Heavy" -> "386056c7-7733-40f7-a9b2-2dc27f83d1eb"
-                "Doll Eyes" to "Light" -> "c7469aa2-511d-410d-b4f4-66f7d1d8076a"
-                "Doll Eyes" to "Medium" -> "642244c6-9065-40bd-a57c-2f8db0dbed6b"
-                "Doll Eyes" to "Heavy" -> "72c5c4d5-4110-441f-9dce-8f7b1e322ba1"
+                "Cat Eyes" to "Light" -> "c7469aa2-511d-410d-b4f4-66f7d1d8076a"
+                "Cat Eyes" to "Medium" -> "642244c6-9065-40bd-a57c-2f8db0dbed6b"
+                "Cat Eyes" to "Heavy" -> "72c5c4d5-4110-441f-9dce-8f7b1e322ba1"
+                "Doll Eyes" to "Light" -> "a5becf40-5103-411c-af8c-ff1d04525820"
+                "Doll Eyes" to "Medium" -> "9310f8a7-95d5-42a3-94e6-d8c5c8ec6bd2"
+                "Doll Eyes" to "Heavy" -> "386056c7-7733-40f7-a9b2-2dc27f83d1eb"
                 else -> null
             }
 
