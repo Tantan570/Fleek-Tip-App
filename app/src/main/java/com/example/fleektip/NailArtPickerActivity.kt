@@ -7,7 +7,7 @@ import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class ColorPickerActivity : AppCompatActivity() {
+class NailArtPickerActivity : AppCompatActivity() {
 
     private var selectedSet: String? = null
     private var selectedNailLength: String? = null

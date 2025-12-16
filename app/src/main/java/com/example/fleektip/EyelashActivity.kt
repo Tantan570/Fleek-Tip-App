@@ -18,7 +18,6 @@ import com.snap.camerakit.invoke
 import com.snap.camerakit.lenses.LensesComponent
 import com.snap.camerakit.lenses.whenHasFirst
 import com.snap.camerakit.support.camerax.CameraXImageProcessorSource
-import com.snap.camerakit.supported
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream

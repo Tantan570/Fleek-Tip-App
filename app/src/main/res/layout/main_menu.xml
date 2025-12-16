@@ -21,17 +21,18 @@
         android:id="@+id/tryOnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="@android:color/white"
         android:contentDescription="try_on"
         android:src="@drawable/ic_try_on"
-        android:backgroundTint="@android:color/white"
-        app:tint="@android:color/black"
         app:elevation="8dp"
-        app:pressedTranslationZ="12dp"
-
-        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintVertical_bias="0.23000002"
+        app:pressedTranslationZ="12dp"
+        app:tint="@android:color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

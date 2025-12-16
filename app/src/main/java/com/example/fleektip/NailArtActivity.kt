@@ -5,10 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.*
-import android.provider.MediaStore
 import android.util.Log
 import android.view.PixelCopy
-import android.view.View
 import android.view.ViewStub
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,7 +22,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 import android.media.MediaScannerConnection
-import java.io.ByteArrayOutputStream
 
 class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
 
@@ -57,7 +54,7 @@ class NailArtActivity : AppCompatActivity(R.layout.ar_screen_nail) {
 
         // Open Color Picker screen
         findViewById<Button>(R.id.btnSelectColor).setOnClickListener {
-            val intent = Intent(this, ColorPickerActivity::class.java)
+            val intent = Intent(this, NailArtPickerActivity::class.java)
             startActivityForResult(intent, COLOR_PICKER_REQUEST)
         }
 
